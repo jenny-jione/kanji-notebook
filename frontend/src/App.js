@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "./components/Home";
-import WordList from "./components/WordList";
+import KanjiPage from "./components/KanjiPage";
 import NewWord from "./components/NewWord";
 import "./App.css";  // CSS 파일 import
 
@@ -56,7 +56,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/kanji/:kanji" element={<WordList />} />
+        <Route path="/kanji/:kanji" element={<KanjiPage />} />
         <Route path="/add" element={<NewWord />} />
       </Routes>
     </>

@@ -6,7 +6,7 @@ import WordTable from "./WordTable";
 import '../App.css';
 
 
-function WordList() {
+function KanjiPage() {
   const { kanji } = useParams();
   const [words, setWords] = useState([]);
   const API_URL = "http://127.0.0.1:8000";
@@ -30,4 +30,4 @@ function WordList() {
   );
 }
 
-export default WordList;
+export default KanjiPage;
