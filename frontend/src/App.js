@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Home from "./components/Home";
 import KanjiPage from "./components/KanjiPage";
 import NewWord from "./components/NewWord";
+import RandomKanji from "./components/RandomKanji";
 import "./App.css";  // CSS 파일 import
 
 
