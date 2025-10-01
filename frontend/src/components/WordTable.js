@@ -1,5 +1,5 @@
 // WordTable.js
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function WordTable({ words }) {
   const navigate = useNavigate();
