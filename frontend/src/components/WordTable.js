@@ -1,11 +1,13 @@
 // WordTable.js
 import { useNavigate } from "react-router-dom";
+import "./WordTable.css";
+
 
 function WordTable({ words }) {
   const navigate = useNavigate();
 
   return (
-    <table border="1" cellPadding="5" cellSpacing="0" style={{ borderCollapse: "collapse" }}>
+    <table className="word-table">
       <thead>
         <tr>
           <th>단어</th>
@@ -27,7 +29,7 @@ function WordTable({ words }) {
                 {item.kanji_list.map((kanji) => (
                   <button
                     key={kanji}
-                    style={{ margin: "5px", fontSize: "15px" }}
+                    className="word-btn"
                     onClick={() => navigate(`/kanji/${kanji}`)}
                   >
                     {kanji}
