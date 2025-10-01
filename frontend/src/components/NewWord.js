@@ -3,13 +3,11 @@ import { useParams } from "react-router-dom";
 
 
 function NewWord() {
-  const { kanji } = useParams();
   const [newWord, setNewWord] = useState({ word: "", hiragana: "", meaning: "", korean: "" });
   const API_URL = "http://127.0.0.1:8000";
 
 
   const handleAddWord = async () => {
-    if (!kanji) return;
     await fetch(`${API_URL}/kanji`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
