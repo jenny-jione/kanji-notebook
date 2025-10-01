@@ -24,7 +24,7 @@ function App() {
           navigate("/");          // 1 → 전체목록
           break;
         case "2":
-          navigate("/random");    // 2 → 랜덤한자
+          navigate("/kanji");    // 2 → 랜덤한자
           break;
         case "3":
           navigate("/quiz");    // 3 → 단어 퀴즈
@@ -50,13 +50,14 @@ function App() {
       {/* 상단 네비게이션바 */}
       <nav className="navbar">
         <button onClick={() => navigate("/")}>전체목록</button>
-        <button onClick={() => navigate("/random")}>랜덤한자</button>
+        <button onClick={() => navigate("/kanji")}>랜덤한자</button>
         <button onClick={() => navigate("/search")}>검색</button>
         <button onClick={() => navigate("/add")}>단어 추가</button>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/kanji/:kanji" element={<KanjiPage />} />
+        <Route path="/kanji" element={<RandomKanji />} />
         <Route path="/add" element={<NewWord />} />
       </Routes>
     </>
