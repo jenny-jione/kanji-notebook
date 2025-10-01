@@ -1,3 +1,5 @@
+// 특정 한자 페이지 - 그 한자를 가지고 있는 모든 단어들이 표시된다.
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import WordTable from "./WordTable";
