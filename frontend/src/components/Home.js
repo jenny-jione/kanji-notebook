@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import WordTable from "./WordTable";
+import "../App.css";
 
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
 
   return (
     <div style={{ padding: "20px" }}>
-        <h1>전체 단어 목록</h1>
+        <h1 className="section-title">전체 단어 목록</h1>
         <WordTable words={words}></WordTable>
 
     </div>

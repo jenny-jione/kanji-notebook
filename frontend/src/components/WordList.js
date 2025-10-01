@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import WordTable from "./WordTable";
+import '../App.css';
 
 
 function WordList() {
@@ -23,7 +24,7 @@ function WordList() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>{kanji}를 포함한 단어</h2>
+      <h2 className="section-title">{kanji}를 포함한 단어</h2>
       <WordTable words={words}></WordTable>
     </div>
   );
