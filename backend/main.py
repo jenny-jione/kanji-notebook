@@ -35,11 +35,6 @@ def get_all_words():
     # 각 한자별 단어 개수를 딕셔너리로 생성
     result = {kanji: len(words) for kanji, words in data.items()}
 
-    # 디버깅용 출력
-    for kanji, count in result.items():
-        print(kanji, count)
-    print("총 한자 수:", len(result))
-
     return result
 
 
