@@ -37,3 +37,8 @@ backend/__pycache__/
 # Misc
 backend/.DS_Store
 backend/.env
+
+backend/kanji_index.json
+backend/word_index.json
+
+.DS_Store
