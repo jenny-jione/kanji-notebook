@@ -14,8 +14,6 @@ function NewWord() {
       body: JSON.stringify(newWord),
     });
     setNewWord({ word: "", hiragana: "", meaning: "", korean: "" });
-    const res = await fetch(`${API_URL}/kanji/${kanji}`);
-    const data = await res.json();
   };
 
   return (
