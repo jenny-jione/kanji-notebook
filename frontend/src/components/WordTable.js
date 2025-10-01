@@ -19,7 +19,7 @@ function WordTable({ words }) {
         {words.map((item) => (
           <tr key={item.word}>
             <td>{item.word}</td>
-            <td>{item.reading}</td>
+            <td>{item.hiragana}</td>
             <td>{item.meaning}</td>
             <td>{item.korean}</td>
             <td>

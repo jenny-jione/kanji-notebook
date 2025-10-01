@@ -18,7 +18,7 @@ JSON_FILE = "kanji_index.json"
 # Pydantic 모델 (POST 요청 검증용)
 class Word(BaseModel):
     word: str
-    reading: str
+    hiragana: str
     meaning: str
     korean: str
 
