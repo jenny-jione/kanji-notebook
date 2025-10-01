@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Home from "./components/Home";
 import WordList from "./components/WordList";
 import NewWord from "./components/NewWord";
+import "./App.css";  // CSS 파일 import
 
 
 function AppWrapper() {
@@ -47,7 +48,7 @@ function App() {
   return (
     <>
       {/* 상단 네비게이션바 */}
-      <nav style={{ padding: "10px", borderBottom: "1px solid #ccc", marginBottom: "20px" }}>
+      <nav className="navbar">
         <button onClick={() => navigate("/")}>전체목록</button>
         <button onClick={() => navigate("/random")}>랜덤한자</button>
         <button onClick={() => navigate("/search")}>검색</button>
