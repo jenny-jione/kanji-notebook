@@ -48,14 +48,11 @@ def make_word_dict(word: Word):
 
 # 모든 한자
 @app.get("/kanji")
-def get_all_words():
+def get_all_kanji():
     with open(JSON_FILE, encoding="utf-8") as f:
         data = json.load(f)
 
-    # 각 한자별 단어 개수를 딕셔너리로 생성
-    result = {kanji: len(words) for kanji, words in data.items()}
-
-    return result
+    return list(data.keys())
 
 
 # 모든 단어 리스트
