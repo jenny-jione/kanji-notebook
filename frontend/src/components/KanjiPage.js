@@ -10,21 +10,23 @@ function KanjiPage() {
   const { kanji } = useParams();
   const [words, setWords] = useState([]);
 
-  useEffect(() => {
+  // 🔹 데이터를 새로 불러오는 함수
+  const fetchWords = async () => {
     if (!kanji) return;
-    const fetchWords = async () => {
-      const res = await fetch(`${API_URL}/kanji/${kanji}`);
-      const data = await res.json();
-      setWords(data);
-    };
+    const res = await fetch(`${API_URL}/kanji/${kanji}`);
+    const data = await res.json();
+    setWords(data);
+  };
+
+  useEffect(() => {
     fetchWords();
   }, [kanji]);
-
 
   return (
     <div style={{ padding: "20px" }}>
       <h2 className="section-title">{kanji}를 포함한 단어</h2>
-      <WordTable words={words}></WordTable>
+      {/* 🔹 WordTable에 refreshWords 전달 */}
+      <WordTable words={words} refreshWords={fetchWords} />
     </div>
   );
 }
