@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import WordTable from "./WordTable";
 import "../App.css";
+import { API_URL } from "../constants";
 
 
 function Home() {
   const [words, setWords] = useState([]);
-  const API_URL = "http://127.0.0.1:8000";
 
   useEffect(() => {
     const fetchAllWords = async () => {

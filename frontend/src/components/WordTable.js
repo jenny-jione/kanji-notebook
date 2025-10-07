@@ -1,6 +1,7 @@
 // WordTable.js
 import { useNavigate } from "react-router-dom";
 import "./WordTable.css";
+import { API_URL } from "../constants"; // ✅ import
 
 
 function WordTable({ words }) {
