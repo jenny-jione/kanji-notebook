@@ -19,20 +19,20 @@ function NewWord() {
       <h3>새 단어 추가</h3>
 
       <div className="form-row">
-        <label>한국어 발음</label>
-        <input
-          placeholder="한국어 발음"
-          value={newWord.korean}
-          onChange={(e) => setNewWord({ ...newWord, korean: e.target.value })}
-        />
-      </div>
-
-      <div className="form-row">
         <label>뜻</label>
         <input
           placeholder="뜻"
           value={newWord.meaning}
           onChange={(e) => setNewWord({ ...newWord, meaning: e.target.value })}
+        />
+      </div>
+
+      <div className="form-row">
+        <label>한국어 발음</label>
+        <input
+          placeholder="한국어 발음"
+          value={newWord.korean}
+          onChange={(e) => setNewWord({ ...newWord, korean: e.target.value })}
         />
       </div>
 
