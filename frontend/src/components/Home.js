@@ -19,7 +19,10 @@ function Home() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <div class="section-header">
         <h1 className="section-title">전체 단어 목록</h1>
+        <div className="detail">(total: {words.length})</div>
+      </div>
       {/* ✅ 갱신 함수도 props로 전달 */}
       <WordTable words={words} refreshWords={fetchAllWords} />
     </div>
