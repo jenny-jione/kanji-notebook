@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./NewWord.css";  // CSS import
 
 function NewWord() {
   const [newWord, setNewWord] = useState({ word: "", hiragana: "", meaning: "", korean: "" });
   const API_URL = "http://127.0.0.1:8000";
+
+  // ref 선언
+  const meaningInputRef = useRef(null);
+
+  // 🔹 컴포넌트가 처음 렌더링될 때 커서 이동
+  useEffect(() => {
+    if (meaningInputRef.current) {
+      meaningInputRef.current.focus();
+    }
+  }, []);
 
   const handleAddWord = async () => {
     await fetch(`${API_URL}/kanji`, {
@@ -12,6 +22,11 @@ function NewWord() {
       body: JSON.stringify(newWord),
     });
     setNewWord({ word: "", hiragana: "", meaning: "", korean: "" });
+
+    // 커서 이동
+    if (meaningInputRef.current) {
+      meaningInputRef.current.focus();
+    }
   };
 
   return (
@@ -21,6 +36,7 @@ function NewWord() {
       <div className="form-row">
         <label>뜻</label>
         <input
+          ref={meaningInputRef}  // ref 연결
           placeholder="뜻"
           value={newWord.meaning}
           onChange={(e) => setNewWord({ ...newWord, meaning: e.target.value })}
