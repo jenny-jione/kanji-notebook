@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Path, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
@@ -68,7 +68,13 @@ def get_all_words():
 
 
 @app.get("/kanji/{kanji}")
-def get_words(kanji: str):
+def get_words(
+        kanji: str = Path(
+        ..., 
+        description="검색할 한자 (예: 日, 月, 水 등)", 
+        example="行"
+    )
+):
     with open(JSON_FILE, encoding="utf-8") as f:
         data = json.load(f)
     return data.get(kanji, [])
