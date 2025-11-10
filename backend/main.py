@@ -80,8 +80,23 @@ def get_words(
     return data.get(kanji, [])
 
 
+
 @app.post("/kanji")
-def add_word(input_word: Word):
+def add_word(
+    input_word: Word = Body(
+        description="추가할 단어의 정보를 입력합니다.",
+        example={
+            "word": "先生",
+            "hiragana": "せんせい",
+            "meaning": "선생님",
+            "korean": "센세이"
+        }
+    )
+):
+    """
+    새로운 단어를 추가합니다.
+    이미 존재하는 단어는 중복 추가되지 않습니다.
+    """
     with open(JSON_FILE, encoding="utf-8") as f:
         data = json.load(f)
     
