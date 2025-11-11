@@ -55,7 +55,7 @@ def get_all_kanji():
     return list(data.keys())
 
 
-# 모든 단어 리스트
+# 모든 단어 리스트 조회
 @app.get("/words_list")
 def get_all_words():
     with open(JSON_FILE, encoding="utf-8") as f:
@@ -64,7 +64,19 @@ def get_all_words():
     all_words = []
     for words in data.values():
         all_words.extend(words)
-    return all_words
+
+    # 중복 단어 제거
+    # 예: '行動'은 '行'과 '動' 두 한자 하위에 모두 존재하므로 중복 제거 필요
+    seen = set()
+    unique_words = []
+    for w in all_words:
+        key = json.dumps(w, sort_keys=True, ensure_ascii=False)
+        if key not in seen:
+            seen.add(key)
+            unique_words.append(w)
+    
+    # 가장 최근에 추가된 단어가 위에 오도록 역순으로 반환
+    return unique_words[::-1]
 
 
 @app.get("/kanji/{kanji}")
@@ -150,7 +162,7 @@ def update_word(
             for i, item in enumerate(data[kanji]):
                 if item["word"] == updated_word.word and item["hiragana"] == updated_word.hiragana:
                     data[kanji][i] = updated_dict
-            found = True
+                    found = True
                     break
 
     if not found:
