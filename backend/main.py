@@ -77,7 +77,8 @@ def get_words(
 ):
     with open(JSON_FILE, encoding="utf-8") as f:
         data = json.load(f)
-    return data.get(kanji, [])
+        result = sorted(data.get(kanji, []), key=lambda x: x.get("word", ""))
+    return result
 
 
 
