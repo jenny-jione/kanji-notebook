@@ -147,8 +147,11 @@ def update_word(
 
     for kanji in kanji_in_word:
         if kanji in data:
-            data[kanji] = [updated_dict]
+            for i, item in enumerate(data[kanji]):
+                if item["word"] == updated_word.word and item["hiragana"] == updated_word.hiragana:
+                    data[kanji][i] = updated_dict
             found = True
+                    break
 
     if not found:
         raise HTTPException(status_code=404, detail="해당 단어를 찾을 수 없습니다. (새 단어는 추가되지 않습니다)")
