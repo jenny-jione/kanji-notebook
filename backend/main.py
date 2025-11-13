@@ -113,14 +113,7 @@ def add_word(
     with open(JSON_FILE, encoding="utf-8") as f:
         data = json.load(f)
     
-    # Word 모델 기본 필드를 dict로 변환
-    word_dict = input_word.model_dump()
-
-    # 단어에 포함된 모든 한자 추출
-    kanji_in_word = [char for char in input_word.word if is_kanji(char)]
-
-    # 추가 필드 삽입
-    word_dict["kanji_list"] = kanji_in_word
+    word_dict, kanji_in_word = make_word_dict(input_word)
 
     for kanji in kanji_in_word:
         if kanji in data:
