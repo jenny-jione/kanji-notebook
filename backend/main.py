@@ -40,7 +40,12 @@ def save_data(data):
 def make_word_dict(word: Word):
     """Word 모델을 dict로 변환하고 kanji_list 추가"""
     word_dict = word.model_dump()
+
+    # 단어에서 한자만 추출 (없으면 전각 언더바로 대체)
     kanji_in_word = [char for char in word.word if is_kanji(char)]
+    if not kanji_in_word:
+        kanji_in_word = ['＿']
+
     word_dict["kanji_list"] = kanji_in_word
     return word_dict, kanji_in_word
 
