@@ -24,8 +24,11 @@ function KanjiPage() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2 className="section-title">{kanji}를 포함한 단어</h2>
-      {/* 🔹 WordTable에 refreshWords 전달 */}
+      <div class="section-header">
+        <h2 className="section-title">{kanji}를 포함한 단어</h2>
+        {/* 🔹 WordTable에 refreshWords 전달 */}
+        <div className="detail">(total: {words.length})</div>
+      </div>
       <WordTable words={words} refreshWords={fetchWords} />
     </div>
   );
