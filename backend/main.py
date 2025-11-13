@@ -118,7 +118,7 @@ def add_word(
     for kanji in kanji_in_word:
         if kanji in data:
             # 이미 같은 단어가 없으면 추가
-            if not any(w['word'] == input_word.word for w in data[kanji]):
+            if not any(w['word'] == input_word.word and w['hiragana'] == input_word.hiragana for w in data[kanji]):
                 data[kanji].append(word_dict)
         else:
             data[kanji] = [word_dict]
