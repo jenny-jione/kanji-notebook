@@ -64,6 +64,7 @@ function WordTable({ words, refreshWords }) {
             <th>뜻</th>
             <th>한국어 발음</th>
             <th>관련 링크</th>
+            <th>분류</th>
             <th>수정</th>
           </tr>
         </thead>
@@ -83,6 +84,19 @@ function WordTable({ words, refreshWords }) {
                       onClick={() => navigate(`/kanji/${kanji}`)}
                     >
                       {kanji}
+                    </button>
+                  ))}
+                </div>
+              </td>
+              <td>
+                <div>
+                  {item.category.map((c) => (
+                    <button
+                      key={c}
+                      className="word-btn category-btn"
+                      onClick={() => navigate(`/category/${c}`)}
+                    >
+                      {c}
                     </button>
                   ))}
                 </div>
@@ -138,6 +152,19 @@ function WordTable({ words, refreshWords }) {
               <input
                 value={editedData.korean}
                 onChange={(e) => handleChange("korean", e.target.value)}
+              />
+            </div>
+            
+            <div className="form-row">
+              <label>분류</label>
+              <input
+                value={editedData.category ? editedData.category.join(",") : ""}
+                onChange={(e) =>
+                  handleChange(
+                    "category",
+                    e.target.value.split(",").map((v) => v.trim())
+                  )
+                }
               />
             </div>
 

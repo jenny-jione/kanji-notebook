@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Path, Body
+from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 import json
 
 app = FastAPI()
@@ -21,6 +22,27 @@ class Word(BaseModel):
     hiragana: str
     meaning: str
     korean: str
+    category: Optional[List[str]] = Field(default_factory=list)
+
+    @field_validator("category", mode="before")
+    @classmethod
+    def clean_category(cls, v):
+        if not v:
+            return []
+
+        # 리스트가 아닐 경우 방어적으로 처리
+        if isinstance(v, str):
+            v = [v]
+
+        cleaned = []
+        for item in v:
+            if not isinstance(item, str):
+                continue
+            stripped = item.strip()
+            if stripped and stripped not in cleaned:
+                cleaned.append(stripped)
+
+        return cleaned
 
 def is_kanji(char: str) -> bool:
     """문자가 한자인지 확인"""
@@ -141,7 +163,8 @@ def update_word(
             "word": "記者",
             "hiragana": "きしゃ",
             "meaning": "기자",
-            "korean": "키샤"
+            "korean": "키샤",
+            "category": ["직업", "언론"]
         }
     )
 ):

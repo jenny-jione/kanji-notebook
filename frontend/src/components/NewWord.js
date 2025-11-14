@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import "./NewWord.css";  // CSS import
 
 function NewWord() {
-  const [newWord, setNewWord] = useState({ word: "", hiragana: "", meaning: "", korean: "" });
+  const [newWord, setNewWord] = useState({ word: "", hiragana: "", meaning: "", korean: "", category: [] });
+  const [categoryText, setCategoryText] = useState(""); // 입력창에 보이는 문자열
   const API_URL = "http://127.0.0.1:8000";
 
   // ref 선언
@@ -16,12 +17,31 @@ function NewWord() {
   }, []);
 
   const handleAddWord = async () => {
+    const categoryArray = categoryText
+      .split(",")
+      .map((v) => v.trim())
+      .filter((v) => v !== "");
+
+    const payload = {
+      ...newWord,
+      category: categoryArray,
+    };
+
     await fetch(`${API_URL}/kanji`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newWord),
+      body: JSON.stringify(payload),
     });
-    setNewWord({ word: "", hiragana: "", meaning: "", korean: "" });
+      
+    // 초기화
+    setNewWord({
+      word: "",
+      hiragana: "",
+      meaning: "",
+      korean: "",
+      category: [],
+    });
+    setCategoryText("");
 
     // 커서 이동
     if (meaningInputRef.current) {
@@ -69,6 +89,16 @@ function NewWord() {
           onChange={(e) => setNewWord({ ...newWord, hiragana: e.target.value })}
         />
       </div>
+
+      <div className="form-row">
+        <label>카테고리</label>
+        <input
+          placeholder="예: 직업"
+          value={categoryText}
+          onChange={(e) => setCategoryText(e.target.value)}
+        />
+      </div>
+
 
       <button className="add-btn" onClick={handleAddWord}>추가</button>
     </div>
