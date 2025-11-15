@@ -1,5 +1,5 @@
 // WordTable.js
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./WordTable.css";
 import { API_URL } from "../constants"; // ✅ import
@@ -9,7 +9,7 @@ function WordTable({ words, refreshWords }) {
   const navigate = useNavigate();
   const [editingWord, setEditingWord] = useState(null);
   const [editedData, setEditedData] = useState({});
-
+  const firstInputRef = useRef(null);
 
   const handleEditClick = (item) => {
     setEditingWord(item);
@@ -37,6 +37,12 @@ function WordTable({ words, refreshWords }) {
     }
   };
 
+
+  useEffect(() => {
+    if (editingWord && firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, [editingWord]);
 
 
   // ✅ ESC 키 누르면 모달 닫기
@@ -126,6 +132,7 @@ function WordTable({ words, refreshWords }) {
             <div className="form-row">
               <label>단어</label>
               <input
+                ref={firstInputRef}   /* 첫 번째 input에 ref */
                 value={editedData.word}
                 onChange={(e) => handleChange("word", e.target.value)}
               />
