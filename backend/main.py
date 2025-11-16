@@ -86,7 +86,7 @@ def get_all_kanji():
 @app.get("/words_list")
 def get_all_words():
     with open(JSON_FILE, encoding="utf-8") as f:
-        data = json.load(f)
+        data: dict = json.load(f)
     # 모든 단어를 한 리스트로 합치기
     all_words = []
     for words in data.values():
