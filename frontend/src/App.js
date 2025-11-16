@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import { useEffect } from "react";
 import Home from "./components/Home";
 import KanjiPage from "./components/KanjiPage";
+import Categories from "./components/Categories";
+import CategoryPage from "./components/CategoryPage";
 import NewWord from "./components/NewWord";
 import RandomKanji from "./components/RandomKanji";
 import "./App.css";  // CSS 파일 import
@@ -28,7 +30,7 @@ function App() {
           navigate("/kanji");    // 2 → 랜덤한자
           break;
         case "3":
-          navigate("/quiz");    // 3 → 단어 퀴즈
+          navigate("/categories");    // 3 → 카테고리
           break;
         case "4":
           navigate("/add");       // 4 → 단어 추가
@@ -52,12 +54,14 @@ function App() {
       <nav className="navbar">
         <button onClick={() => navigate("/")}>전체목록</button>
         <button onClick={() => navigate("/kanji")}>랜덤한자</button>
-        <button onClick={() => navigate("/search")}>검색</button>
+        <button onClick={() => navigate("/categories")}>카테고리</button>
         <button onClick={() => navigate("/add")}>단어 추가</button>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/kanji/:kanji" element={<KanjiPage />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/kanji" element={<RandomKanji />} />
         <Route path="/add" element={<NewWord />} />
       </Routes>

@@ -120,6 +120,35 @@ def get_words(
     return result
 
 
+@app.get("/categories")
+def get_all_categories():
+    data: dict = load_data()
+    result = {
+        category
+        for word_list in data.values()
+        for word in word_list
+        for category in word["category"]
+    }
+    return sorted(result)
+
+
+@app.get("/category/{category}")
+def get_words_by_category(
+    category: str = Path(
+        ...,
+        description="카테고리 (예: 자연물, 방향, 시간 등)",
+        example="방향"
+    )
+):
+    with open(JSON_FILE, encoding="utf-8") as f:
+        data: dict = json.load(f)
+        result = []
+        for kanji, word_list in data.items():
+            for word in word_list:
+                if category in word["category"] and word not in result:
+                    result.append(word)
+    return sorted(result, key=lambda x: x["word"])
+
 
 @app.post("/kanji")
 def add_word(
