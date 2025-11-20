@@ -28,13 +28,13 @@ function App() {
           navigate("/");          // 1 → 전체목록
           break;
         case "2":
-          navigate("/kanji");    // 2 → 랜덤한자
+          navigate("/add");       // 2 → 단어 추가
           break;
         case "3":
-          navigate("/categories");    // 3 → 카테고리
+          navigate("/kanji");    // 3 → 랜덤한자
           break;
         case "4":
-          navigate("/add");       // 4 → 단어 추가
+          navigate("/categories");    // 4 → 카테고리
           break;
         case "5":
           navigate(`/category/${bookmark}`);       // 5 → 북마크 페이지
@@ -57,9 +57,9 @@ function App() {
       {/* 상단 네비게이션바 */}
       <nav className="navbar">
         <button onClick={() => navigate("/")}>전체목록</button>
+        <button onClick={() => navigate("/add")}>단어 추가</button>
         <button onClick={() => navigate("/kanji")}>랜덤한자</button>
         <button onClick={() => navigate("/categories")}>카테고리</button>
-        <button onClick={() => navigate("/add")}>단어 추가</button>
         <button onClick={() => navigate(`/category/${bookmark}`)}>북마크</button>
       </nav>
       <Routes>
