@@ -19,6 +19,7 @@ function AppWrapper() {
 
 function App() {
   const navigate = useNavigate();
+  const bookmark = "북마크"
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -34,6 +35,9 @@ function App() {
           break;
         case "4":
           navigate("/add");       // 4 → 단어 추가
+          break;
+        case "5":
+          navigate(`/category/${bookmark}`);       // 5 → 북마크 페이지
           break;
         default:
           break;
@@ -56,6 +60,7 @@ function App() {
         <button onClick={() => navigate("/kanji")}>랜덤한자</button>
         <button onClick={() => navigate("/categories")}>카테고리</button>
         <button onClick={() => navigate("/add")}>단어 추가</button>
+        <button onClick={() => navigate(`/category/${bookmark}`)}>북마크</button>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
