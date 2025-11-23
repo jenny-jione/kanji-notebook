@@ -46,6 +46,14 @@ class Word(BaseModel):
 
         return cleaned
 
+class WordUpdate(BaseModel):
+    word: str
+    hiragana: str
+    meaning: str
+    korean: str
+    category: Optional[List[str]] = Field(default_factory=list)
+
+
 def is_kanji(char: str) -> bool:
     """문자가 한자인지 확인"""
     return '\u4e00' <= char <= '\u9fff'
@@ -190,7 +198,7 @@ def add_word(
 # ---------- update ----------
 @app.put("/kanji")
 def update_word(
-    updated_word: Word = Body(
+    updated_word: WordUpdate = Body(
         example={
             "word": "記者",
             "hiragana": "きしゃ",
@@ -214,6 +222,10 @@ def update_word(
         if kanji in data:
             for i, item in enumerate(data[kanji]):
                 if item["word"] == updated_word.word and item["hiragana"] == updated_word.hiragana:
+
+                    # 기존 created_at 유지
+                    updated_dict["created_at"] = item["created_at"]
+                    
                     data[kanji][i] = updated_dict
                     found = True
                     break
