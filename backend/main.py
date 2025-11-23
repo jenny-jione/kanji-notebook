@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException, Path, Body
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,6 +24,7 @@ class Word(BaseModel):
     meaning: str
     korean: str
     category: Optional[List[str]] = Field(default_factory=list)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     @field_validator("category", mode="before")
     @classmethod
@@ -103,7 +105,8 @@ def get_all_words():
             unique_words.append(w)
     
     # 가장 최근에 추가된 단어가 위에 오도록 역순으로 반환
-    return unique_words[::-1]
+    result = sorted(unique_words, key=lambda x: x.get("created_at", ""), reverse=True)
+    return result
 
 
 @app.get("/kanji/{kanji}")
@@ -180,7 +183,7 @@ def add_word(
             data[kanji] = [word_dict]
 
     with open(JSON_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=2, default=str)
     return {"status": "success"}
 
 
