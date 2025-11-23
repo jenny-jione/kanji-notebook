@@ -69,7 +69,7 @@ def save_data(data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def make_word_dict(word: Word):
+def make_word_dict(word: BaseModel):
     """Word 모델을 dict로 변환하고 kanji_list 추가"""
     word_dict = word.model_dump()
 
