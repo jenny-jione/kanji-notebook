@@ -27,17 +27,17 @@ function App() {
         case "1":
           navigate("/");          // 1 → 전체목록
           break;
-        case "2":
-          navigate("/add");       // 2 → 단어 추가
+        case "0":
+          navigate("/add");       // 0 → 단어 추가
           break;
-        case "3":
-          navigate("/kanji");    // 3 → 랜덤한자
+        case "7":
+          navigate("/kanji");    // 7 → 랜덤한자
           break;
-        case "4":
-          navigate("/categories");    // 4 → 카테고리
+        case "8":
+          navigate("/categories");    // 8 → 카테고리
           break;
-        case "5":
-          navigate(`/category/${bookmark}`);       // 5 → 북마크 페이지
+        case "9":
+          navigate(`/category/${bookmark}`);       // 9 → 북마크 페이지
           break;
         default:
           break;
