@@ -17,14 +17,9 @@ app.add_middleware(
 
 JSON_FILE = "kanji_index.json"
 
-# Pydantic 모델 (POST 요청 검증용)
-class Word(BaseModel):
-    word: str
-    hiragana: str
-    meaning: str
-    korean: str
+
+class WordBase(BaseModel):
     category: Optional[List[str]] = Field(default_factory=list)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     @field_validator("category", mode="before")
     @classmethod
@@ -32,21 +27,28 @@ class Word(BaseModel):
         if not v:
             return []
 
-        # 리스트가 아닐 경우 방어적으로 처리
         if isinstance(v, str):
             v = [v]
 
         cleaned = []
         for item in v:
-            if not isinstance(item, str):
-                continue
-            stripped = item.strip()
-            if stripped and stripped not in cleaned:
-                cleaned.append(stripped)
-
+            if isinstance(item, str):
+                stripped = item.strip()
+                if stripped and stripped not in cleaned:
+                    cleaned.append(stripped)
         return cleaned
+    
 
-class WordUpdate(BaseModel):
+class Word(WordBase):
+    word: str
+    hiragana: str
+    meaning: str
+    korean: str
+    category: Optional[List[str]] = Field(default_factory=list)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class WordUpdate(WordBase):
     word: str
     hiragana: str
     meaning: str
