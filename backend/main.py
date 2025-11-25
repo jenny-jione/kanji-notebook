@@ -46,7 +46,7 @@ class Word(WordBase):
     korean: str
     category: Optional[List[str]] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class WordUpdate(WordBase):
     word: str
@@ -54,7 +54,7 @@ class WordUpdate(WordBase):
     meaning: str
     korean: str
     category: Optional[List[str]] = Field(default_factory=list)
-
+    updated_at: datetime | None = None
 
 def is_kanji(char: str) -> bool:
     """문자가 한자인지 확인"""
@@ -223,10 +223,8 @@ def update_word(
         if kanji in data:
             for i, item in enumerate(data[kanji]):
                 if item["word"] == updated_word.word and item["hiragana"] == updated_word.hiragana:
-
-                    # 기존 created_at 유지
                     updated_dict["created_at"] = item["created_at"]
-                    
+                    updated_dict["updated_at"] = datetime.now(timezone.utc)
                     data[kanji][i] = updated_dict
                     found = True
                     break
