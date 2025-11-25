@@ -9,7 +9,7 @@ function WordTable({ words, refreshWords }) {
   const navigate = useNavigate();
   const [editingWord, setEditingWord] = useState(null);
   const [editedData, setEditedData] = useState({});
-  const firstInputRef = useRef(null);
+  const autoFocusRef = useRef(null);
 
   const handleEditClick = (item) => {
     setEditingWord(item);
@@ -39,8 +39,8 @@ function WordTable({ words, refreshWords }) {
 
 
   useEffect(() => {
-    if (editingWord && firstInputRef.current) {
-      firstInputRef.current.focus();
+    if (editingWord && autoFocusRef.current) {
+      autoFocusRef.current.focus();
     }
   }, [editingWord]);
 
@@ -132,7 +132,6 @@ function WordTable({ words, refreshWords }) {
             <div className="form-row">
               <label>단어</label>
               <input
-                ref={firstInputRef}   /* 첫 번째 input에 ref */
                 value={editedData.word}
                 onChange={(e) => handleChange("word", e.target.value)}
               />
@@ -165,6 +164,7 @@ function WordTable({ words, refreshWords }) {
             <div className="form-row">
               <label>분류</label>
               <input
+                ref={autoFocusRef}
                 value={editedData.category ? editedData.category.join(",") : ""}
                 onChange={(e) =>
                   handleChange(
