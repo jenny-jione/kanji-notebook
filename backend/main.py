@@ -68,7 +68,7 @@ def load_data():
 
 def save_data(data):
     with open(JSON_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=2, default=str)
 
 
 def make_word_dict(word: BaseModel):
@@ -192,8 +192,7 @@ def add_word(
         else:
             data[kanji] = [word_dict]
 
-    with open(JSON_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2, default=str)
+    save_data(data)
     return {"status": "success"}
 
 
