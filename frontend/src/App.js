@@ -36,9 +36,6 @@ function App() {
         case "8":
           navigate("/categories");    // 8 → 카테고리
           break;
-        case "9":
-          navigate(`/category/${bookmark}`);       // 9 → 북마크 페이지
-          break;
         default:
           break;
       }
