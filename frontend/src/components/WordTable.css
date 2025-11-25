@@ -83,11 +83,18 @@
   width: 400px;
 }
 
+.modal-content h2 {
+  margin-bottom: 4px; /* 간격 줄이기 */
+}
+
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
 }
 
-
-
+/* 생성일, 수정일 */
+.form-row.meta {
+  font-size: 12px;
+  color: #888;
+}
