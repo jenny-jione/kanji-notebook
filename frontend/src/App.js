@@ -57,7 +57,6 @@ function App() {
       {/* 상단 네비게이션바 */}
       <nav className="navbar">
         <button onClick={() => navigate("/")}>전체목록</button>
-        <button onClick={() => navigate("/add")}>단어 추가</button>
         <button onClick={() => navigate("/kanji")}>랜덤한자</button>
         <button onClick={() => navigate("/categories")}>카테고리</button>
         <button onClick={() => navigate(`/category/${bookmark}`)}>북마크</button>
