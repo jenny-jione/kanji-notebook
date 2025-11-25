@@ -44,6 +44,13 @@ function WordTable({ words, refreshWords }) {
     }
   }, [editingWord]);
 
+  const formatKST = (utc) => {
+  if (!utc) return "";
+  return new Date(utc.replace(" ", "T")).toLocaleString("ko-KR", {
+    timeZone: "Asia/Seoul",
+  });
+};
+
 
   // ✅ ESC 키 누르면 모달 닫기
   useEffect(() => {
@@ -128,7 +135,13 @@ function WordTable({ words, refreshWords }) {
             className="modal-content"
             onClick={(e) => e.stopPropagation()} // 배경 클릭 시 닫힘 방지
           >
-            <h3>단어 수정</h3>
+            <h2>단어 수정</h2>
+            <div className="form-row meta">
+            {formatKST(editedData.created_at)}
+            <br></br>
+            {formatKST(editedData.updated_at)}
+            </div>
+
             <div className="form-row">
               <label>단어</label>
               <input
