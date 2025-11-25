@@ -115,7 +115,7 @@ def get_all_words():
             unique_words.append(w)
     
     # 가장 최근에 추가된 단어가 위에 오도록 역순으로 반환
-    result = sorted(unique_words, key=lambda x: x.get("created_at", ""), reverse=True)
+    result = sorted(unique_words, key=lambda x: x.get("updated_at", ""), reverse=True)
     return result
 
 
