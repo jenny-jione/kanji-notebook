@@ -87,7 +87,7 @@ function WordTable({ words, refreshWords }) {
               <td>{item.word}</td>
               <td>{item.hiragana}</td>
               <td>{item.meaning}</td>
-              <td>{item.korean}</td>
+              <td className="korean-cell">{item.korean}</td>
               <td>
                 <div>
                   {item.kanji_list.map((kanji) => (

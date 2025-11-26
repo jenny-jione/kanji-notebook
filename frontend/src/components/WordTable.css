@@ -35,6 +35,11 @@
   text-align: center;
 }
 
+/* 한국어 발음 td의 폰트 크기 */
+.korean-cell {
+  font-size: 0.7rem !important;
+}
+
 .word-table th {
   background-color: #f0f0f0; /* 헤더 흐린 회색 */
   color: #333;
