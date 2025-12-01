@@ -47,6 +47,7 @@ class Word(WordBase):
     category: Optional[List[str]] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    wrong_count: int = 0
 
 class WordUpdate(WordBase):
     word: str
@@ -55,6 +56,7 @@ class WordUpdate(WordBase):
     korean: str
     category: Optional[List[str]] = Field(default_factory=list)
     updated_at: datetime | None = None
+    wrong_count: Optional[int] = None
 
 def is_kanji(char: str) -> bool:
     """문자가 한자인지 확인"""
