@@ -83,7 +83,7 @@ function WordTable({ words, refreshWords }) {
         </thead>
         <tbody>
           {words.map((item) => (
-            <tr key={item.word}>
+            <tr key={`${item.word}-${item.hiragana}-${item.meaning}`}>
               <td>{item.word}</td>
               <td>{item.hiragana}</td>
               <td>{item.meaning}</td>
