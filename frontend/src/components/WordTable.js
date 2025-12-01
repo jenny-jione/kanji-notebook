@@ -37,6 +37,33 @@ function WordTable({ words, refreshWords }) {
     }
   };
 
+  const handleCheckCount = async (item, mode) => {
+    try {
+      const updatedCount =
+        mode === "increase"
+          ? (item.wrong_count || 0) + 1
+          : Math.max((item.wrong_count || 0) - 1, 0); // 0 이하로 내려가지 않게
+
+      const updated = {
+        ...item,                       // 전체 필드 채움
+        wrong_count: updatedCount,
+      };
+
+      const response = await fetch(`${API_URL}/kanji`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+      });
+
+      if (!response.ok) throw new Error("카운트 수정 실패");
+
+      await refreshWords();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   useEffect(() => {
     if (editingWord && autoFocusRef.current) {
@@ -103,6 +130,7 @@ function WordTable({ words, refreshWords }) {
               </td>
               <td>
                 <div>
+                  <span className="check-badge">{item.wrong_count}</span>
                   {item.category.map((c) => (
                     <button
                       key={c}
@@ -122,6 +150,12 @@ function WordTable({ words, refreshWords }) {
                 >
                   ✍🏻
                 </button>
+                <button
+                  className="word-btn category-btn"
+                  onClick={() => handleCheckCount(item, "decrease")}>✅</button>
+                <button
+                  className="word-btn category-btn"
+                  onClick={() => handleCheckCount(item, "increase")}>❓</button>
               </td>
             </tr>
           ))}
@@ -137,9 +171,11 @@ function WordTable({ words, refreshWords }) {
           >
             <h2>단어 수정</h2>
             <div className="form-row meta">
-            {formatKST(editedData.created_at)}
-            <br></br>
-            {formatKST(editedData.updated_at)}
+              단어 체크 횟수: {editedData.wrong_count}
+              <br></br>
+              {formatKST(editedData.created_at)}
+              <br></br>
+              {formatKST(editedData.updated_at)}
             </div>
 
             <div className="form-row">
