@@ -145,7 +145,7 @@ function WordTable({ words, refreshWords }) {
               <td>
                 <button
                   key={item.word}
-                  className="word-btn"
+                  className="word-btn category-btn"
                   onClick={() => handleEditClick(item)}
                 >
                   ✍🏻
