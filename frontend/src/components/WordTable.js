@@ -152,10 +152,10 @@ function WordTable({ words, refreshWords }) {
                 </button>
                 <button
                   className="word-btn category-btn"
-                  onClick={() => handleCheckCount(item, "decrease")}>✅</button>
+                  onClick={() => handleCheckCount(item, "increase")}>✅</button>
                 <button
                   className="word-btn category-btn"
-                  onClick={() => handleCheckCount(item, "increase")}>❓</button>
+                  onClick={() => handleCheckCount(item, "decrease")}>👏🏻</button>
               </td>
             </tr>
           ))}
