@@ -162,7 +162,14 @@ def get_words_by_category(
             for word in word_list:
                 if category in word["category"] and word not in result:
                     result.append(word)
-    return sorted(result, key=lambda x: x["word"])
+    if category == "예문":
+        sort_key = "updated_at"
+        rev = True
+    else:
+        sort_key = "word"
+        rev = False
+    sorted_result = sorted(result, key=lambda x: x[sort_key], reverse=rev)
+    return sorted_result
 
 
 @app.post("/kanji")
