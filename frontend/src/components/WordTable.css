@@ -115,3 +115,50 @@
   margin-left: 1px;          /* 단어와 간격 */
   vertical-align: middle;    /* 단어와 수직 정렬 */
 }
+
+
+/* 체크박스 위치 */
+.column-selector {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* 체크박스 감싸는 라벨 */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  /* background-color: #f0f0f0; */
+  /* padding: 6px 10px; */
+  /* border-radius: 8px; */
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  gap: 6px;
+}
+
+/* 기본 체크박스 숨기기 */
+.checkbox-label input[type="checkbox"] {
+  display: none;
+}
+
+/* 커스텀 체크박스 */
+.checkbox-label span::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 2px solid #bbb;
+  background-color: white;
+  margin-right: 4px;
+  vertical-align: middle;
+  transition: 0.2s;
+}
+
+/* 체크된 상태 */
+.checkbox-label input[type="checkbox"]:checked + span::before {
+  background-color: #4a90e2; /* 파랑 포인트 */
+  border-color: #4a90e2;
+}

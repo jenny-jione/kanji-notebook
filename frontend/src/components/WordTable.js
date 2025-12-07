@@ -64,6 +64,29 @@ function WordTable({ words, refreshWords }) {
   };
 
 
+  // 테이블에서 표시할 컬럼 옵션과 컬럼 표시 여부를 관리하는 상태 및 토글 함수
+  const COLUMN_OPTIONS = [
+    { key: "word", label: "단어" },
+    { key: "hiragana", label: "히라가나" },
+    { key: "meaning", label: "뜻" },
+    { key: "korean", label: "한국어 발음" },
+    { key: "category", label: "분류" },
+    { key: "edit", label: "수정" }
+  ];
+
+  const [visibleColumns, setVisibleColumns] = useState(
+    COLUMN_OPTIONS.map((col) => col.key) // 초기 상태: 전부 보이기
+  );
+
+  const toggleColumn = (key) => {
+    setVisibleColumns((prev) =>
+      prev.includes(key)
+        ? prev.filter((col) => col !== key)
+        : [...prev, key]
+    );
+  };
+
+
 
   useEffect(() => {
     if (editingWord && autoFocusRef.current) {
@@ -96,70 +119,117 @@ function WordTable({ words, refreshWords }) {
 
   return (
     <>
+    {/* 사용자가 표시할 컬럼을 선택할 수 있는 체크박스 UI */}
+      <div className="column-selector">
+        {COLUMN_OPTIONS.map((col) => (
+          <label key={col.key} className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={visibleColumns.includes(col.key)}
+              onChange={() => toggleColumn(col.key)}
+            />
+            <span>{col.label}</span>
+          </label>
+        ))}
+      </div>
+
+      {/* 선택된 컬럼(visibleColumns)에 따라 테이블 헤더와 데이터 행을 동적으로 렌더링 */}
       <table className="word-table">
         <thead>
           <tr>
-            <th>단어</th>
-            <th>히라가나</th>
-            <th>뜻</th>
-            <th>한국어 발음</th>
-            <th>관련 링크</th>
-            <th>분류</th>
-            <th>수정</th>
+            {visibleColumns.includes("word") && <th>단어</th>}
+            {visibleColumns.includes("hiragana") && <th>히라가나</th>}
+            {visibleColumns.includes("meaning") && <th>뜻</th>}
+            {visibleColumns.includes("korean") && <th>한국어 발음</th>}
+            {visibleColumns.includes("category") && <th>분류</th>}
+            {visibleColumns.includes("edit") && <th>수정</th>}
           </tr>
         </thead>
+
         <tbody>
           {words.map((item) => (
             <tr key={`${item.word}-${item.hiragana}-${item.meaning}`}>
-              <td>{item.word}</td>
-              <td>{item.hiragana}</td>
-              <td>{item.meaning}</td>
-              <td className="korean-cell">{item.korean}</td>
-              <td>
-                <div>
-                  {item.kanji_list.map((kanji) => (
-                    <button
-                      key={kanji}
-                      className="word-btn"
-                      onClick={() => navigate(`/kanji/${kanji}`)}
-                    >
-                      {kanji}
-                    </button>
-                  ))}
-                </div>
-              </td>
-              <td>
-                <div>
-                  <span className="check-badge">{item.wrong_count}</span>
-                  {item.category.map((c) => (
-                    <button
-                      key={c}
-                      className="word-btn category-btn"
-                      onClick={() => navigate(`/category/${c}`)}
-                    >
-                      {c}
-                    </button>
-                  ))}
-                </div>
-              </td>
-              <td>
-                <button
-                  key={item.word}
-                  className="word-btn category-btn"
-                  onClick={() => handleEditClick(item)}
-                >
-                  ✍🏻
-                </button>
-                <button
-                  className="word-btn category-btn"
-                  onClick={() => handleCheckCount(item, "increase")}>✅</button>
-                <button
-                  className="word-btn category-btn"
-                  onClick={() => handleCheckCount(item, "decrease")}>👏🏻</button>
-              </td>
+
+              {visibleColumns.includes("word") && (
+                <td>{item.word}</td>
+              )}
+
+              {visibleColumns.includes("hiragana") && (
+                <td>{item.hiragana}</td>
+              )}
+
+              {visibleColumns.includes("meaning") && (
+                <td>{item.meaning}</td>
+              )}
+
+              {visibleColumns.includes("korean") && (
+                <td className="korean-cell">{item.korean}</td>
+              )}
+
+              {visibleColumns.includes("kanji_list") && (
+                <td>
+                  <div>
+                    {item.kanji_list.map((kanji) => (
+                      <button
+                        key={kanji}
+                        className="word-btn"
+                        onClick={() => navigate(`/kanji/${kanji}`)}
+                      >
+                        {kanji}
+                      </button>
+                    ))}
+                  </div>
+                </td>
+              )}
+
+              {visibleColumns.includes("category") && (
+                <td>
+                  <div>
+                    <span className="check-badge">{item.wrong_count}</span>
+                    {item.category.map((c) => (
+                      <button
+                        key={c}
+                        className="word-btn category-btn"
+                        onClick={() => navigate(`/category/${c}`)}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </td>
+              )}
+
+              {visibleColumns.includes("edit") && (
+                <td>
+                  <button
+                    key={item.word}
+                    className="word-btn category-btn"
+                    onClick={() => handleEditClick(item)}
+                  >
+                    ✍🏻
+                  </button>
+
+                  <button
+                    className="word-btn category-btn"
+                    onClick={() => handleCheckCount(item, "increase")}
+                  >
+                    ✅
+                  </button>
+
+                  <button
+                    className="word-btn category-btn"
+                    onClick={() => handleCheckCount(item, "decrease")}
+                  >
+                    👏🏻
+                  </button>
+                </td>
+              )}
+
             </tr>
           ))}
         </tbody>
+
+
       </table>
 
       {/* ✅ 모달창 */}
