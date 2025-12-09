@@ -22,7 +22,7 @@ function WordTable({ words, refreshWords }) {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`${API_URL}/kanji`, {
+      const response = await fetch(`${API_URL}/kanji/${editingWord.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedData),
@@ -49,7 +49,7 @@ function WordTable({ words, refreshWords }) {
         wrong_count: updatedCount,
       };
 
-      const response = await fetch(`${API_URL}/kanji`, {
+      const response = await fetch(`${API_URL}/kanji/${item.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updated),
