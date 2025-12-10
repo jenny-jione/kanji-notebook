@@ -143,6 +143,7 @@ function WordTable({ words, refreshWords }) {
             {visibleColumns.includes("korean") && <th>한국어 발음</th>}
             {visibleColumns.includes("category") && <th>분류</th>}
             {visibleColumns.includes("edit") && <th>수정</th>}
+            {visibleColumns.includes("date") && <th>날짜</th>}
           </tr>
         </thead>
 
@@ -223,6 +224,10 @@ function WordTable({ words, refreshWords }) {
                     👏🏻
                   </button>
                 </td>
+              )}
+
+              {visibleColumns.includes("date") && (
+                <td className="korean-cell">{formatKST(item.updated_at)}</td>
               )}
 
             </tr>
