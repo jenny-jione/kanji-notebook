@@ -36,6 +36,9 @@ function App() {
         case "8":
           navigate("/categories");    // 8 → 카테고리
           break;
+        case "9":
+          navigate("/category/예문");    // 9 → 예문
+          break;
         default:
           break;
       }
