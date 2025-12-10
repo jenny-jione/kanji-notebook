@@ -66,16 +66,19 @@ function WordTable({ words, refreshWords }) {
 
   // 테이블에서 표시할 컬럼 옵션과 컬럼 표시 여부를 관리하는 상태 및 토글 함수
   const COLUMN_OPTIONS = [
-    { key: "word", label: "단어" },
-    { key: "hiragana", label: "히라가나" },
-    { key: "meaning", label: "뜻" },
-    { key: "korean", label: "한국어 발음" },
-    { key: "category", label: "분류" },
-    { key: "edit", label: "수정" }
+    { key: "word", label: "단어", defaultVisible: true },
+    { key: "hiragana", label: "히라가나", defaultVisible: true },
+    { key: "meaning", label: "뜻", defaultVisible: true },
+    { key: "korean", label: "한국어 발음", defaultVisible: false },
+    { key: "category", label: "분류", defaultVisible: true },
+    { key: "edit", label: "수정", defaultVisible: false },
+    { key: "date", label: "날짜", defaultVisible: false }
   ];
 
   const [visibleColumns, setVisibleColumns] = useState(
-    COLUMN_OPTIONS.map((col) => col.key) // 초기 상태: 전부 보이기
+    COLUMN_OPTIONS
+      .filter((col) => col.defaultVisible)
+      .map((col) => col.key)
   );
 
   const toggleColumn = (key) => {
